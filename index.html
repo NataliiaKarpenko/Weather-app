@@ -42,7 +42,7 @@
             />
             <input type="submit" value="Search" class="search-box" />
           </form>
-          
+
           <!-- <ul class="date-list">
             <li class="date" id="current-date"></li>
             <li class="day-time" id="current-day-time">Sunday, 22:30</li>
@@ -64,12 +64,24 @@
         <div class="col-6 current-weather-container">
           <h3>Current weather</h3>
           <p class="current-temperature">
-            ⛈ <span id="degrees"></span><span class="units" id="temp-celsius">°C</span> <span class="dash">|</span> 
+            ⛈ <span id="degrees"></span
+            ><span class="units" id="temp-celsius">°C</span>
+            <span class="dash">|</span>
             <span class="units" id="temp-fahrenheit">°F</span>
           </p>
           <ul class="wind-humidity-list">
-            <li>Wind: <span class="current-weather-element"><span id="wind"></span> meter/sec</span></li>
-            <li>Humidity: <span class="current-weather-element"><span id="humidity"></span>%</span></li>
+            <li>
+              Wind:
+              <span class="current-weather-element"
+                ><span id="wind"></span> meter/sec</span
+              >
+            </li>
+            <li>
+              Humidity:
+              <span class="current-weather-element"
+                ><span id="humidity"></span>%</span
+              >
+            </li>
             <li id="weather-condition"></li>
           </ul>
         </div>
@@ -100,6 +112,12 @@
           <br />
           <span class="each-day-temperature">🌦 13/20°C</span>
         </div>
+      </div>
+      <div class="link-container">
+        <a class="link" href="https://github.com/natalia-no-war/Weather-app"
+          >Open-source code</a
+        >
+        <span class="author">by Nataliia Karpenko</span>
       </div>
     </div>
     <script src="src/index.js"></script>

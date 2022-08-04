@@ -127,3 +127,20 @@ h3 {
 .fifth-day-temperature {
   text-align: center;
 }
+.link-container {
+  padding: 20px 0;
+}
+.link {
+  color: #29406b;
+  text-decoration: none;
+  font-weight: bold;
+}
+.link:hover {
+  text-decoration: underline;
+  color: #29406b;
+}
+.author {
+  color: #141e31;
+  font-weight: 500;
+  font-style: italic;
+}
