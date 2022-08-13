@@ -95,16 +95,30 @@ h3 {
   font-weight: 600;
   text-align: center;
 }
-.units,
+.units  {
+  position: relative;
+  top: -20px;
+  font-size: 30px;
+  color: #2151aa;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .dash {
   position: relative;
-  top: -13px;
+  top: -20px;
   font-size: 30px;
 }
-#temp-fahrenheit:hover,
-#temp-celsius:hover {
-  text-decoration: underline;
+
+.active-units {
+  color: #29406b;
+  text-decoration: none;
 }
+
+.active-units:hover {
+  cursor: default;
+}
+
 .wind-humidity-list {
   font-size: 20px;
   font-weight: 600;
