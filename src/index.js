@@ -40,6 +40,26 @@ currentDate.innerHTML = `${date} ${month}, ${year}`;
 let currentDayTime = document.querySelector("#current-day-time");
 currentDayTime.innerHTML = `${day}, ${hours}:${minutes}`;
 
+function displayForecast() {
+  let forecast = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row each-day-weather-row">`;
+  let days = ["Wed", "Thu", "Fri", "Sat", "Sun"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+  
+    <div class="col each-day-column">
+      <span class="week-day">${day}</span>
+         <br />
+       <span class="each-day-temperature">☀️ 20/30°C</span>
+     </div>
+  `;}
+  )
+    forecastHTML = forecastHTML + `</div>`
+    forecast.innerHTML = forecastHTML;
+  
+}
 let currentCelsiusTemp = null;
 
 function displayWeather(response) {
@@ -101,3 +121,5 @@ function convertToFahrenheit() {
 
 let tempFahrenheit = document.querySelector("#unit-fahrenheit");
 tempFahrenheit.addEventListener("click", convertToFahrenheit);
+
+displayForecast();
