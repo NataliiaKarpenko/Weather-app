@@ -60,37 +60,45 @@
   text-align: center;
   align-self: center;
 }
+
 h1 {
   font-weight: 700;
   font-size: 60px;
 }
+
 .date-list {
   padding: 0;
 }
+
 ul {
   list-style: none;
 }
+
 .date,
 .each-day-temperature {
   font-weight: 600;
   font-size: 20px;
 }
+
 .day-time,
 .week-day {
   font-size: 17px;
   font-weight: 600;
 }
+
 .current-weather-container {
   border: 4px solid rgb(70, 70, 158);
   border-radius: 15px;
   box-shadow: 2px 3px 4px rgba(21, 21, 59, 0.7);
   text-align: center;
 }
+
 h3 {
   text-align: center;
   font-size: 30px;
   font-weight: 600;
 }
+
 .current-temperature {
   font-size: 60px;
   font-weight: 600;
@@ -127,20 +135,24 @@ h3 {
   font-weight: 600;
   padding-left: 0;
 }
+
 .current-weather-element {
   font-style: italic;
 }
+
 .each-day-weather-row {
   border-radius: 10px;
   margin: 30px 5px 10px;
   height: 90px;
 }
+
 .each-day-column {
   border: 2px solid rgb(70, 70, 158);
   border-radius: 10px;
   box-shadow: 3px 3px 3px rgba(21, 21, 59, 0.7);
   text-align: center;
 }
+
 .fifth-day-temperature {
   text-align: center;
 }
@@ -152,15 +164,18 @@ h3 {
 .link-container {
   padding: 10px 0;
 }
+
 .link {
   color: #29406b;
   text-decoration: none;
   font-weight: bold;
 }
+
 .link:hover {
   text-decoration: underline;
   color: #29406b;
 }
+
 .author {
   color: #141e31;
   font-weight: 500;
