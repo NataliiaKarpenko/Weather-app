@@ -1,62 +1,92 @@
 let currentTime = new Date();
-let date = currentTime.getDate();
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-let month = months[currentTime.getMonth()];
-let year = currentTime.getFullYear();
-let hours = currentTime.getHours();
-if (hours < 10) {
-  hours = `0${hours}`;
-}
-let minutes = currentTime.getMinutes();
-if (minutes < 10) {
-  minutes = `0${minutes}`;
-}
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = days[currentTime.getDay()];
 
-let currentDate = document.querySelector("#current-date");
-currentDate.innerHTML = `${date} ${month}, ${year}`;
-let currentDayTime = document.querySelector("#current-day-time");
-currentDayTime.innerHTML = `${day}, ${hours}:${minutes}`;
+function formatDate(currentDate) {
+  let date = currentDate.getDate();
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let month = months[currentDate.getMonth()];
+  let year = currentDate.getFullYear();
+  return `${date} ${month}, ${year}`;
+}
+
+let dateElement = document.querySelector("#current-date");
+dateElement.innerHTML = formatDate(currentTime);
+
+function formatDayTime(currentDay) {
+  let hours = currentDay.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = currentDay.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[currentDay.getDay()];
+  return `${day}, ${hours}:${minutes}`;
+}
+
+let dayTimeElement = document.querySelector("#current-day-time");
+dayTimeElement.innerHTML = formatDayTime(currentTime);
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  return days[day];
+}
 
 function displayForecast(response) {
-  let forecast = document.querySelector("#forecast");
+  let forecast = response.data.daily;
+  let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row each-day-weather-row">`;
-  let days = ["Wed", "Thu", "Fri", "Sat", "Sun"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `  
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `  
     <div class="col each-day-column">
-      <span class="week-day">${day}</span>
-         <br />
-       <span class="each-day-temperature">☀️ 20/30°C</span>
-     </div>
+      <div class="week-day">${formatDay(forecastDay.dt)}
+      </div>
+      <img src="http://openweathermap.org/img/wn/${
+        forecastDay.weather[0].icon
+      }@2x.png"
+      alt=""
+      width=42
+      />
+      <div class="each-day-temperature">
+        <span class="min-temp">${Math.round(
+          forecastDay.temp.min
+        )}</span>/<span class="max-temp">${Math.round(
+          forecastDay.temp.max
+        )}</span>°C
+      </div>
+    </div>
   `;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
-  forecast.innerHTML = forecastHTML;
+  forecastElement.innerHTML = forecastHTML;
 }
 let currentCelsiusTemp = null;
 
@@ -108,6 +138,16 @@ function showCurrentLocation(position) {
 
 navigator.geolocation.getCurrentPosition(showCurrentLocation);
 
+function convertToFahrenheit() {
+  let degreesFahrenheit = document.querySelector("#degrees");
+  degreesFahrenheit.innerHTML = Math.round((currentCelsiusTemp * 9) / 5 + 32);
+  tempCelsius.classList.remove("active-units");
+  tempFahrenheit.classList.add("active-units");
+}
+
+let tempFahrenheit = document.querySelector("#unit-fahrenheit");
+tempFahrenheit.addEventListener("click", convertToFahrenheit);
+
 function convertToCelsius() {
   let degreesCelsius = document.querySelector("#degrees");
   degreesCelsius.innerHTML = currentCelsiusTemp;
@@ -118,12 +158,4 @@ function convertToCelsius() {
 let tempCelsius = document.querySelector("#unit-celsius");
 tempCelsius.addEventListener("click", convertToCelsius);
 
-function convertToFahrenheit() {
-  let degreesFahrenheit = document.querySelector("#degrees");
-  degreesFahrenheit.innerHTML = Math.round((currentCelsiusTemp * 9) / 5 + 32);
-  tempCelsius.classList.remove("active-units");
-  tempFahrenheit.classList.add("active-units");
-}
 
-let tempFahrenheit = document.querySelector("#unit-fahrenheit");
-tempFahrenheit.addEventListener("click", convertToFahrenheit);
