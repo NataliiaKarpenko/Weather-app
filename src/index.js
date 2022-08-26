@@ -115,28 +115,49 @@ function displayWeather(response) {
   getForecast(response.data.coord);
 }
 
-function showCity(event) {
-  event.preventDefault();
-  let city = document.querySelector(".input-box").value;
+function search(city) {
   let apiKey = "8dcd9f739c97fb9e5152465931cf4ba4";
-  let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayWeather);
 }
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let city = document.querySelector(".input-box");
+  search(city.value);
+  // let units = "metric";
+}
+
+  
 
 let searchForm = document.querySelector(".search-container");
-searchForm.addEventListener("submit", showCity);
+searchForm.addEventListener("submit", handleSubmit);
 
-function showCurrentLocation(position) {
-  let lon = position.coords.longitude;
-  let lat = position.coords.latitude;
-  let apiKey = "8dcd9f739c97fb9e5152465931cf4ba4";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+search("Kyiv");
 
-  axios.get(apiUrl).then(displayWeather);
-}
+// function search(city) {
+//   let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+//   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+//   axios.get(apiUrl).then(displayTemperature);
+// }
 
-navigator.geolocation.getCurrentPosition(showCurrentLocation);
+// function handleSubmit(event) {
+//   event.preventDefault();
+//   let cityInputElement = document.querySelector("#city-input");
+//   search(cityInputElement.value);
+// }
+
+
+// function showCurrentLocation(position) {
+//   let lon = position.coords.longitude;
+//   let lat = position.coords.latitude;
+//   let apiKey = "8dcd9f739c97fb9e5152465931cf4ba4";
+//   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+//   axios.get(apiUrl).then(displayWeather);
+// }
+
+// navigator.geolocation.getCurrentPosition(showCurrentLocation);
 
 function convertToFahrenheit() {
   let degreesFahrenheit = document.querySelector("#degrees");
