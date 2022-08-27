@@ -4,7 +4,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   color: #29406b;
-  max-width: 700px;
+  max-width: 750px;
   border: 2px solid #9cccdf;
   border-radius: 10px;
   box-shadow: 1px 1px 3px 4px #7a95a0;
@@ -13,7 +13,7 @@
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
-  padding: 20px 20px 10px;
+  padding: 20px 30px;
 }
 
 .logo-container {
@@ -25,7 +25,7 @@
 }
 
 .input-box {
-  width: 300px;
+  width: 250px;
   height: 40px;
   border: 2px solid rgb(70, 70, 158);
   border-radius: 5px;
@@ -54,6 +54,22 @@
 .search-box:hover {
   background-color: #29406b;
   color: rgb(238, 231, 245);
+}
+
+.current-geolocation-btn {
+  width: 50px;
+  height: 40px;
+  border: 2px solid rgb(70, 70, 158);
+  border-radius: 5px;
+  color: rgb(238, 231, 245);
+  background-color: #29406b;
+  box-shadow: 2px 3px 4px rgba(21, 21, 59, 0.7);
+  transition: all 0.5s ease-in-out;
+}
+
+.current-geolocation-btn:hover {
+  background-color: rgb(238, 231, 245);
+  color: #29406b;
 }
 
 .city-container {
@@ -122,12 +138,9 @@ h3 {
 
 .active-units {
   color: #29406b;
-  
-  text-decoration: none;
-}
 
-.active-units:hover {
   cursor: default;
+  text-decoration: none;
 }
 
 .wind-humidity-list {
@@ -162,7 +175,7 @@ h3 {
 }
 
 .link-container {
-  padding: 10px 0;
+  padding: 20px 0 0;
 }
 
 .link {

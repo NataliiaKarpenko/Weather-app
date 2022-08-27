@@ -1,4 +1,17 @@
 let currentTime = new Date();
+let dateElement = document.querySelector("#current-date");
+dateElement.innerHTML = formatDate(currentTime);
+let dayTimeElement = document.querySelector("#current-day-time");
+dayTimeElement.innerHTML = formatDayTime(currentTime);
+let currentCelsiusTemp = null;
+let searchForm = document.querySelector(".search-container");
+searchForm.addEventListener("submit", handleSubmit);
+let currentGeolocationBtn = document.querySelector(".current-geolocation-btn");
+currentGeolocationBtn.addEventListener("click", showCurrentLocation);
+let tempFahrenheit = document.querySelector("#unit-fahrenheit");
+tempFahrenheit.addEventListener("click", convertToFahrenheit);
+let tempCelsius = document.querySelector("#unit-celsius");
+tempCelsius.addEventListener("click", convertToCelsius);
 
 function formatDate(currentDate) {
   let date = currentDate.getDate();
@@ -21,9 +34,6 @@ function formatDate(currentDate) {
   return `${date} ${month}, ${year}`;
 }
 
-let dateElement = document.querySelector("#current-date");
-dateElement.innerHTML = formatDate(currentTime);
-
 function formatDayTime(currentDay) {
   let hours = currentDay.getHours();
   if (hours < 10) {
@@ -45,9 +55,6 @@ function formatDayTime(currentDay) {
   let day = days[currentDay.getDay()];
   return `${day}, ${hours}:${minutes}`;
 }
-
-let dayTimeElement = document.querySelector("#current-day-time");
-dayTimeElement.innerHTML = formatDayTime(currentTime);
 
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
@@ -88,7 +95,6 @@ function displayForecast(response) {
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
-let currentCelsiusTemp = null;
 
 function getForecast(coordinates) {
   let apiKey = "8dcd9f739c97fb9e5152465931cf4ba4";
@@ -113,6 +119,8 @@ function displayWeather(response) {
   );
   icon.setAttribute("alt", response.data.weather[0].description);
   getForecast(response.data.coord);
+  tempFahrenheit.classList.remove("active-units");
+  tempCelsius.classList.add("active-units");
 }
 
 function search(city) {
@@ -125,39 +133,22 @@ function handleSubmit(event) {
   event.preventDefault();
   let city = document.querySelector(".input-box");
   search(city.value);
-  // let units = "metric";
+}
+search("Kyiv");
+  
+function searchCurrentLocation(position) {
+  let lon = position.coords.longitude;
+  let lat = position.coords.latitude;
+  let apiKey = "8dcd9f739c97fb9e5152465931cf4ba4";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(displayWeather);
 }
 
-  
-
-let searchForm = document.querySelector(".search-container");
-searchForm.addEventListener("submit", handleSubmit);
-
-search("Kyiv");
-
-// function search(city) {
-//   let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
-//   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-//   axios.get(apiUrl).then(displayTemperature);
-// }
-
-// function handleSubmit(event) {
-//   event.preventDefault();
-//   let cityInputElement = document.querySelector("#city-input");
-//   search(cityInputElement.value);
-// }
-
-
-// function showCurrentLocation(position) {
-//   let lon = position.coords.longitude;
-//   let lat = position.coords.latitude;
-//   let apiKey = "8dcd9f739c97fb9e5152465931cf4ba4";
-//   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-
-//   axios.get(apiUrl).then(displayWeather);
-// }
-
-// navigator.geolocation.getCurrentPosition(showCurrentLocation);
+function showCurrentLocation(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(searchCurrentLocation);
+}
 
 function convertToFahrenheit() {
   let degreesFahrenheit = document.querySelector("#degrees");
@@ -166,9 +157,6 @@ function convertToFahrenheit() {
   tempFahrenheit.classList.add("active-units");
 }
 
-let tempFahrenheit = document.querySelector("#unit-fahrenheit");
-tempFahrenheit.addEventListener("click", convertToFahrenheit);
-
 function convertToCelsius() {
   let degreesCelsius = document.querySelector("#degrees");
   degreesCelsius.innerHTML = currentCelsiusTemp;
@@ -176,7 +164,6 @@ function convertToCelsius() {
   tempCelsius.classList.add("active-units");
 }
 
-let tempCelsius = document.querySelector("#unit-celsius");
-tempCelsius.addEventListener("click", convertToCelsius);
+
 
 
