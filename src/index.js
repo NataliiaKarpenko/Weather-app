@@ -3,6 +3,7 @@ let dateElement = document.querySelector("#current-date");
 dateElement.innerHTML = formatDate(currentTime);
 let dayTimeElement = document.querySelector("#current-day-time");
 dayTimeElement.innerHTML = formatDayTime(currentTime);
+
 let currentCelsiusTemp = null;
 let searchForm = document.querySelector(".search-container");
 searchForm.addEventListener("submit", handleSubmit);
